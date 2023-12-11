@@ -1,5 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 module.exports = {
 	mode: 'development',
@@ -14,12 +16,22 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			title: 'top-repository-template',
 		}),
+		new MiniCssExtractPlugin({
+			filename: '[name].css',
+			chunkFilename: '[id].css',
+		}),
 	],
+	devServer: {
+		static: './src',
+	},
+	optimization: {
+		minimizer: [new CssMinimizerPlugin()],
+	},
 	module: {
 		rules: [
 			{
 				test: /\.css$/i,
-				use: ['style-loader', 'css-loader'],
+				use: [MiniCssExtractPlugin.loader, 'css-loader'],
 			},
 			{
 				test: /\.(png|svg|jpg|jpeg|gif)$/i,
