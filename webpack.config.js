@@ -13,7 +13,7 @@ module.exports = {
   devtool: 'inline-source-map',
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'top-repository-template',
+      template: 'src/index.html',
     }),
     new MiniCssExtractPlugin({
       filename: '[name].css',
